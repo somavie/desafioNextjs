@@ -2,8 +2,8 @@ import { Pool } from "mysql2/promise";
 
 interface Participante {
   id: number;
-  nome: string;
-  presente: boolean;
+  name: string;
+  present: boolean;
   data_registro: Date;
 }
 
@@ -19,21 +19,21 @@ class ParticipanteModel {
     return rows as Participante[];
   }
 
-  async create(nome: string): Promise<Participante> {
+  async create(name: string): Promise<Participante> {
     const [result] = await this.db.query(
-      "INSERT INTO participantes (nome) VALUES (?)",
-      [nome]
+      "INSERT INTO participantes (name) VALUES (?)",
+      [name]
     );
     const insertId = (result as any).insertId;
-    return { id: insertId, nome, presente: false, data_registro: new Date() };
+    return { id: insertId, name, present: false, data_registro: new Date() };
   }
 
-  async updatePresenca(id: number, presente: boolean): Promise<Participante> {
-    await this.db.query("UPDATE participantes SET presente = ? WHERE id = ?", [
-      presente,
+  async updatePresenca(id: number, present: boolean): Promise<Participante> {
+    await this.db.query("UPDATE participantes SET present = ? WHERE id = ?", [
+      present,
       id,
     ]);
-    return { id, presente } as Participante;
+    return { id, present } as Participante;
   }
 }
 

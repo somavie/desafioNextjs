@@ -21,9 +21,9 @@ class ParticipantesController {
 
   adicionar = async (req: Request, res: Response) => {
     try {
-      const { nome } = req.body;
+      const { name } = req.body;
       const novoParticipante =
-        await this.participanteService.adicionarParticipante(nome);
+        await this.participanteService.adicionarParticipante(name);
       res.json(novoParticipante);
     } catch (err) {
       // console.error(err.message);
@@ -34,10 +34,10 @@ class ParticipantesController {
   marcarPresenca = async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { presente } = req.body;
+      const { present } = req.body;
       const participante = await this.participanteService.marcarPresenca(
         Number(id),
-        presente
+        present
       );
       res.json(participante);
     } catch (err) {
